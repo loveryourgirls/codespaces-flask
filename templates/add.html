@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/add.css">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Добавить запись</h1>
+    <form action="/add" method="post" onsubmit="return validateForm()">
+        <input type="text" name="title" placeholder="Введите название новости">
+        <input type="text" name="content" placeholder="Введите текст новости">
+        <input type="password" name="password" placeholder="Введите пароль">
+        <input type="submit" value="Добавить!">
+    </form>
+
+    <script>
+        function validateForm() {
+            const passwordInput = document.querySelector('input[name="password"]');
+            if (passwordInput.value !== "1111") {
+                alert("Неверный пароль. Добавление записи невозможно.");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>

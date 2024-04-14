@@ -1,1 +1,18 @@
-!
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1>Блог</h1>
+    {% for i in posts %}
+        <h2>{{ i.title }}</h2>
+        <p>{{ i.content }}</p>
+        <a href="/delete/{{i.id}}">Удалить запись</a>
+    {% endfor %}
+    <a href="/add">Добавить запись</a>
+</body>
+</html>
