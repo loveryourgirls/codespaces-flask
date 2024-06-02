@@ -3,16 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend+Mega:wght@100..900&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+
     <title>Document</title>
-    <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    <h1>Блог</h1>
-    {% for i in posts %}
-        <h2>{{ i.title }}</h2>
-        <p>{{ i.content }}</p>
-        <a href="/delete/{{i.id}}">Удалить запись</a>
-    {% endfor %}
-    <a href="/add">Добавить запись</a>
+    <style>
+        body {
+            background-color: #373737;
+            color: #ffffff;
+            font-family: 'Lexend Mega', sans-serif;
+        }
+        .text {
+            text-align: center;
+        }
+        .text h1{
+            text-align: center;
+            font-weight: bold;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 50px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #3a3a3a;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background-color: #4d4d4d;
+        }
+
+        .btn {
+            margin: 10px;
+        }
+    </style>
+    <div class="text">
+        <h1>Choise your coin</h1>
+    </div>
+    <div class="buttons">
+        <button class="btn btn-primary" id="bitcoin_btn" onclick="location.href='/bitcoin'">Bitcoin</button>
+        <button class="btn btn-primary" id="epherium_btn" onclick="location.href='/epherium'">Epherium</button>
+        <button class="btn btn-primary" id="ton_btn" onclick="location.href='/ton'">TON</button>
+    </div>
+
 </body>
 </html>
+

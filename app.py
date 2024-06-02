@@ -1,51 +1,45 @@
-# Импорт необходимых модулей и функций для работы БД
-from sqlalchemy import create_engine, Column, Integer, String, Text
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.orm import declarative_base
-
-from flask import Flask, render_template, request, redirect
-
-# Настройка базы данных
-engine = create_engine('sqlite:///blog.db')
-Base = declarative_base()
-
-class Post(Base):
-  __tablename__ = 'posts'
-
-  id = Column(Integer, primary_key=True)
-  title = Column(String)
-  content = Column(Text)
-
-# Создание базы данных и таблиц
-Base.metadata.create_all(engine)
-
-# Сессия базы данных
-Session = sessionmaker(bind=engine)
-session = Session()
-
-
+from flask import Flask, render_template, jsonify
+import requests
 
 app = Flask(__name__)
 
-@app.route("/")
+def get_crypto_price(coin_symbol):
+     url = "https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT"
+     response = requests.get(url)
+     if response.status_code == 200:
+        data = response.json()
+        btc_price = data["price"]
+        return btc_price
+     else:
+        return None
+    
+
+def get_ephirium_price(coin_symbol):
+     url = ""
+     response = requests.get(url)
+     if response.status_code == 200:
+        data = response.json()
+        ephirium_price = data["price"]
+        return ephirium_price
+     else:
+        return None
+
+@app.route ('/')
+def home():
+    return render_template('index.html')
+
+    return render_template('epherium.html')
+@app.route('/bitcoin')
 def index():
-    posts = session.query(Post).all()
-    return render_template("index.html", posts=posts)
+    return render_template('bitcoin.html')
 
+@app.route('/get_price')
+def get_price():
+    crypto_price = get_crypto_price('BTC')
+    if crypto_price is not None:
+        return jsonify({'crypto_price': crypto_price})
+    else:
+        return jsonify({'error': 'Failed to get Bitcoin price'})
 
-@app.route('/add', methods = ['GET', 'POST'])
-def add():
-    if request.method == 'POST':
-       title = request.form['title']
-       content = request.form['content']
-       post = Post(title = title, content = content)
-       session.add(post)
-       session.commit()
-       return redirect('/')
-    return render_template('add.html')
-@app.route('/delete/<int:id>')
-def delete(id):
-   post = session.query(Post).filter_by(id=id).first()
-   session.delete(post)
-   session.commit()
-   return redirect('/')
+if __name__ == '__main__':
+    app.run(debug=True)

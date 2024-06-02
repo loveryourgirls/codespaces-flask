@@ -1,0 +1,29 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #373737;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.bitcoin h1 {
+    color: #ffffff;
+    text-align: center;
+
+}
+
+.bitcoin p {
+    color: #666;
+    text-align: center;
+}
+
+#crypto_price {
+    font-weight: bold;
+    color: #007bff;
+}
+

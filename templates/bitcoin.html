@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Bitcoin Price</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            function getPrice() {
+                $.ajax({
+                    url: '/get_price',
+                    type: 'GET',
+                    success: function(response) {
+                        if ('crypto_price' in response) {
+                            $('#crypto_price').text('$' + response.crypto_price);
+                        } else {
+                            $('#crypto_price').text('Failed to get Bitcoin price');
+                        }
+                    },
+                    error: function(error) {
+                        $('#crypto_price').text('Failed to get Bitcoin price');
+                    }
+                });
+            }
+            getPrice(); // Получаем текущий курс при загрузке страницы
+            setInterval(getPrice, 2000); // Обновляем цену каждые 5 секунд
+        });
+    </script>
+</head>
+<body>
+    <div class ="bitcoin">
+        <h1>Bitcoin Price</h1>
+        <p>Current price: <span id="crypto_price"></span></p>
+
+    </div>
+</body>
+</html>
